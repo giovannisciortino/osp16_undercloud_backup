@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  roles:
+    - osp16_undercloud_backup
