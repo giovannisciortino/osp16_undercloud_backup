@@ -1,4 +1,5 @@
 ---
 - hosts: localhost
+  gather_facts: off
   roles:
     - osp16_undercloud_backup

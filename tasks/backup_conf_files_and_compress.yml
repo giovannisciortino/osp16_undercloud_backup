@@ -1,1 +1,27 @@
-#osp16_undercloud_backup_enable_backup_conf_files
+- name: Copy file to destination dir if compress is disabled
+  synchronize:
+    src: "{{ item }}"
+    dest: "{{ backup_dir.path }}"
+    rsync_opts:
+      - "--xattrs"
+      - "-v"
+      - "--relative"
+  become: yes
+  loop: "{{ osp16_undercloud_backup_source_directory }}"
+  when: not osp16_undercloud_backup_compress and osp16_undercloud_backup_enable_backup_dir
+
+- name: Create compressed backup file
+  shell: "tar --xattrs --xattrs-include='*.*' --ignore-failed-read -zcf {{ backup_dir.path }}.tar.gz {{ src_db_file }} {{ src_conf_dir }}"
+  vars:
+    src_db_file: "{% if osp16_undercloud_backup_enable_backup_db %}undercloud-all-databases.sql{% endif %}"
+    src_conf_dir: "{% if osp16_undercloud_backup_enable_backup_dir %}{{ osp16_undercloud_backup_source_directory | join(' ') }}{% endif %}"
+  args:
+    chdir: "{{ backup_dir.path }}"
+  become: yes
+  when: osp16_undercloud_backup_compress
+
+- name: Remove tmp directory
+  file:
+    path: "{{ backup_dir.path }}"
+    state: absent
+  when: osp16_undercloud_backup_compress

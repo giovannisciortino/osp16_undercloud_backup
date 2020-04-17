@@ -1,11 +1,11 @@
 ---
 # tasks file for osp16_undercloud_backup
 - name: Include initialize task list in role
-  include_tasks: backup_initialize.yml 
+  include_tasks: backup_initialize.yml
 
 - name: Include backupdb task list in role
   include_tasks: backup_db.yml
-  when: osp16_undercloud_backup_enable_backup_db == true
+  when: osp16_undercloud_backup_enable_backup_db
 
 - name: Include compress files task list in role
   include_tasks: backup_conf_files_and_compress.yml

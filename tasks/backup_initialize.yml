@@ -1,18 +1,24 @@
 ---
-- name: Check tmp directory exists 
-  stat:
-    path: "{{osp16_undercloud_backup_tmp_dir}}"
-  register: check_tmp_dir
+- name: Check role parameter
+  assert:
+    fail_msg: "At least one of the following variable must be true: osp16_undercloud_backup_enable_backup_db osp16_undercloud_backup_enable_backup_dir"
+    that:
+    - osp16_undercloud_backup_enable_backup_db or osp16_undercloud_backup_enable_backup_dir
 
-- name: Fail if tmp director doesn't exists
+- name: Check dest directory exists
+  stat:
+    path: "{{ osp16_undercloud_backup_destination_dir }}"
+  register: check_dest_dir
+
+- name: Fail if dest director doesn't exists
   fail:
-    msg: "{{osp16_undercloud_backup_tmp_dir}} doesn't exists or isn't a directory"
-  when: ( not check_tmp_dir.stat.exists ) or ( not check_tmp_dir.stat.isdir )
+    msg: "{{ osp16_undercloud_backup_tmp_dir }} doesn't exists or isn't a directory"
+  when: ( not check_dest_dir.stat.exists ) or ( not check_dest_dir.stat.isdir )
 
 
 - name: Create backup directory
   file:
-    path: "{{osp16_undercloud_backup_tmp_dir}}/{{osp16_undercloud_backup_destination_filename_format}}"
+    path: "{{ osp16_undercloud_backup_destination_dir }}/{{ osp16_undercloud_backup_destination_filename_format }}"
     state: directory
     mode: '0755'
   register: backup_dir

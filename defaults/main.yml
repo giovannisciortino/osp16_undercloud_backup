@@ -1,8 +1,20 @@
 ---
 # defaults file for osp16_undercloud_backup
-osp16_undercloud_backup_tmp_dir: "/tmp"
 osp16_undercloud_backup_destination_dir: "/home/stack"
-osp16_undercloud_backup_destination_filename_format: "osp16_undercloud_backup"
+osp16_undercloud_backup_destination_filename_format: "osp16_undercloud_bck_{{ lookup('pipe','date +%Y%m%d_%H%M') }}"
 
 osp16_undercloud_backup_enable_backup_db: true
-osp16_undercloud_backup_enable_backup_conf_files: true
+osp16_undercloud_backup_enable_backup_dir: true
+
+osp16_undercloud_backup_compress: true
+
+osp16_undercloud_backup_source_directory:
+ - /etc
+ - /var/log
+ - /var/lib/glance
+ - /var/lib/certmonger/
+ - /var/lib/containers
+ - /var/lib/image-serve
+ - /srv/node
+ - /home/stack
+ - /root

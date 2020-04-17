@@ -4,8 +4,10 @@
   register: mysql_root_password
   become: true
   changed_when: false
-  
 
-- name: Execute mysql backup 
-  shell: podman exec mysql bash -c "mysqldump -uroot -p{{mysql_root_password.stdout}} --opt --all-databases" > {{ backup_dir.path }}/undercloud-all-databases.sql
+- name: Execute mysql backup
+  shell: |
+    podman exec mysql bash -c "mysqldump -uroot -p{{ mysql_root_password.stdout }} --opt --all-databases" > {{ output_file }}
+  vars:
+    output_file: "{{ backup_dir.path }}/undercloud-all-databases.sql"
   become: true
