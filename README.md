@@ -15,33 +15,45 @@ Role Variables
 --------------
 
 ### Optional
-osp16_undercloud_backup_destination_dir: 
-  description: Backup destination dir
-  default value: "/home/stack"
-osp16_undercloud_backup_destination_filename_format: 
-  description: Backup destination filename
-  default value: "osp16_undercloud_bck_{{ lookup('pipe','date +%Y%m%d_%H%M') }}"
-osp16_undercloud_backup_enable_backup_db: 
-  description: Enable/Disable the undercloud database backup
-  default value: true
-osp16_undercloud_backup_enable_backup_dir: 
-  description: Enable/Disable the backup of the directories listed in osp16_undercloud_backup_source_directory 
-  default value: true
-osp16_undercloud_backup_compress: 
-  description: Compress the backup in a tar.gz file
-  default_value:  true
-osp16_undercloud_backup_source_directory: 
-  description: The list of directory object of the backup
-  default_value:  
-    - /etc
-    - /var/log
-    - /var/lib/glance
-    - /var/lib/certmonger/
-    - /var/lib/containers
-    - /var/lib/image-serve
-    - /srv/node
-    - /home/stack
-    - /root
+- osp16_undercloud_backup_destination_dir:
+
+    description: Backup destination dir
+    
+    default value: "/home/stack"
+- osp16_undercloud_backup_destination_filename_format: 
+
+    description: Backup destination filename
+
+    default value: "osp16_undercloud_bck_{{ lookup('pipe','date +%Y%m%d_%H%M') }}"
+- osp16_undercloud_backup_enable_backup_db: 
+
+    description: Enable/Disable the undercloud database backup
+
+    default value: true
+- osp16_undercloud_backup_enable_backup_dir: 
+
+    description: Enable/Disable the backup of the directories listed in osp16_undercloud_backup_source_directory 
+
+    default value: true
+- osp16_undercloud_backup_compress: 
+
+    description: Compress the backup in a tar.gz file
+
+    default_value:  true
+- osp16_undercloud_backup_source_directory: 
+
+    description: The list of directory object of the backup
+
+    default_value:  
+      - /etc
+      - /var/log
+      - /var/lib/glance
+      - /var/lib/certmonger/
+      - /var/lib/containers
+      - /var/lib/image-serve
+      - /srv/node
+      - /home/stack
+      - /root
 
 Dependencies
 ------------
@@ -65,6 +77,6 @@ GPL-3.0
 Author Information
 ------------------
 
-Giovanni Sciortino
-Email: giovannibattistasciortino@gmail.com
-Github: @giovannisciortino
+- Giovanni Sciortino
+- Email: giovannibattistasciortino@gmail.com
+- Github: @giovannisciortino
