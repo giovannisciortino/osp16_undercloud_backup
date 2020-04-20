@@ -1,6 +1,6 @@
 galaxy_info:
   author: Giovanni Sciortino
-  description: github @giovannisciortino email
+  description: Ansible role to perform Red Hat Openstack 16 undercloud backup
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
