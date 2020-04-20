@@ -15,32 +15,32 @@ Role Variables
 --------------
 
 ### Optional
-- osp16_undercloud_backup_destination_dir:
+- **osp16_undercloud_backup_destination_dir:**
 
     description: Backup destination dir
     
     default value: "/home/stack"
-- osp16_undercloud_backup_destination_filename_format: 
+- **osp16_undercloud_backup_destination_filename_format:**
 
     description: Backup destination filename
 
     default value: "osp16_undercloud_bck_{{ lookup('pipe','date +%Y%m%d_%H%M') }}"
-- osp16_undercloud_backup_enable_backup_db: 
+- **osp16_undercloud_backup_enable_backup_db:** 
 
     description: Enable/Disable the undercloud database backup
 
     default value: true
-- osp16_undercloud_backup_enable_backup_dir: 
+- **osp16_undercloud_backup_enable_backup_dir:** 
 
     description: Enable/Disable the backup of the directories listed in osp16_undercloud_backup_source_directory 
 
     default value: true
-- osp16_undercloud_backup_compress: 
+- **osp16_undercloud_backup_compress:**
 
     description: Compress the backup in a tar.gz file
 
     default_value:  true
-- osp16_undercloud_backup_source_directory: 
+- **osp16_undercloud_backup_source_directory:**
 
     description: The list of directory object of the backup
 
@@ -62,12 +62,27 @@ tar already installed
 
 Example Playbook
 ----------------
-
-- hosts: undercloud
+```
+- name: Create a compressed backup of database dump only in a specific directory
+  hosts: undercloud
   roles:
     - role: osp16_undercloud_backup
       vars:
-        <TO_BE_COMPLETED> 
+        osp16_undercloud_backup_destination_dir: /home/stack/backup
+        osp16_undercloud_backup_enable_backup_dir: false        
+```
+
+```
+- name: Create a not compressed backup of database dump, /etc and /home/stack directory
+  hosts: undercloud
+  roles:
+    - role: osp16_undercloud_backup
+      vars:
+        osp16_undercloud_backup_compress: false
+        osp16_undercloud_backup_source_directory:
+          - /etc
+          - /home/stack
+```
 
 License
 -------
