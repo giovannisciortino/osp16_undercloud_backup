@@ -51,9 +51,11 @@ tar already installed
 Example Playbook
 ----------------
 
-    - hosts: localhost
-      roles:
-         - { role: username.rolename, x: 42 }
+- hosts: undercloud
+  roles:
+    - role: osp16_undercloud_backup
+      vars:
+        <TO_BE_COMPLETED> 
 
 License
 -------
