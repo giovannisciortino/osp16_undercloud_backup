@@ -14,33 +14,55 @@ This role has been tested on Red Hat Openstack 16.0
 Role Variables
 --------------
 
-osp16_undercloud_backup_destination_dir: Backup destination dir
-osp16_undercloud_backup_destination_filename_format: Backup destination filename
-osp16_undercloud_backup_enable_backup_db: Enable/Disable the undercloud database backup
-osp16_undercloud_backup_enable_backup_dir: Enable/Disable the backup of the directories listed in osp16_undercloud_backup_source_directory 
-osp16_undercloud_backup_compress: Compress the backup in a tar.gz file
-osp16_undercloud_backup_source_directory: The list of directory object of the backup
+### Optional
+osp16_undercloud_backup_destination_dir: 
+  description: Backup destination dir
+  default value: "/home/stack"
+osp16_undercloud_backup_destination_filename_format: 
+  description: Backup destination filename
+  default value: "osp16_undercloud_bck_{{ lookup('pipe','date +%Y%m%d_%H%M') }}"
+osp16_undercloud_backup_enable_backup_db: 
+  description: Enable/Disable the undercloud database backup
+  default value: true
+osp16_undercloud_backup_enable_backup_dir: 
+  description: Enable/Disable the backup of the directories listed in osp16_undercloud_backup_source_directory 
+  default value: true
+osp16_undercloud_backup_compress: 
+  description: Compress the backup in a tar.gz file
+  default_value:  true
+osp16_undercloud_backup_source_directory: 
+  description: The list of directory object of the backup
+  default_value:  
+    - /etc
+    - /var/log
+    - /var/lib/glance
+    - /var/lib/certmonger/
+    - /var/lib/containers
+    - /var/lib/image-serve
+    - /srv/node
+    - /home/stack
+    - /root
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+tar already installed
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: localhost
       roles:
          - { role: username.rolename, x: 42 }
 
 License
 -------
 
-BSD
+GPL-3.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Giovanni Sciortino
+Email: giovannibattistasciortino@gmail.com
+Github: @giovannisciortino
